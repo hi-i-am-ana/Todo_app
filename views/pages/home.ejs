@@ -1,0 +1,105 @@
+<h2>Add new todo</h2>
+
+<form id="form" method="post" action="/" novalidate>
+
+  <fieldset class="form-group">
+    <label for="name">Todo name *</label>
+    <input class="form-control" type="text" id="name" name="name">
+  </fieldset>
+
+  <fieldset class="form-group">
+    <label for="due_date">Due date *</label>
+    <input class="form-control" id="due_date" type="date" name="due_date">
+  </fieldset>
+
+  <fieldset class="form-group">
+    <label for="priority">Priority *</label>
+    <select class="form-control" id="priority" name="priority">
+      <option disabled selected value="">Select priority</option>
+      <option value='1'>High</option>
+      <option value='2'>Medium</option>
+      <option value='3'>Low</option>
+    </select>
+  </fieldset>
+
+  <fieldset class="form-group">
+    <label for="status">Status *</label>
+    <select class="form-control" id="Status" name="Status">
+      <option disabled selected value="">Select status</option>
+      <option value='1'>Todo</option>
+      <option value='2'>In progress</option>
+      <option value='3'>Review</option>
+      <option value='3'>Done</option>
+    </select>
+  </fieldset>
+
+  <button class="button" type="submit">Save</button>
+</form>
+
+<div class="container-fluid mt-5">
+  <div class="row mx-3">
+    <h2 class="mt-4">Todo list</h2>
+  </div>
+
+  <div class="row mx-3" id="todo-container">
+    <%if(todos.length!==0) {%>
+      <% todos.forEach(todo => { %>
+        
+        <div class="card" id=<%= todo.todo_id%>>
+          <div class="card-body">
+            <h5 class="card-title"><%= todo.name%></h5> 
+            <h6 class="card-subtitle mb-2 text-muted">Due date: <%= todo.due_date%></h6>
+            <div class="alert
+              <% if(todo.status === 4) {%>alert-success<%}%>
+              <% if(todo.status === 3) {%>alert-warning<%}%>
+              <% if(todo.status === 2) {%>alert-primary<%}%>
+              <% if(todo.status === 1) {%>alert-info<%}%>
+              ">Status: <%= todo.status%></div>
+            <div class="badge mb-4
+              <% if(todo.priority === 1) {%>badge-danger<%}%>
+              <% if(todo.priority === 2) {%>badge-primary<%}%>
+              <% if(todo.priority === 3) {%>badge-secondary<%}%>
+              " style="width:100%">Priority: <%= todo.priority%></div>
+            <div class="btn-group btn-group-toggle mb-3" style="width:100%" data-toggle="buttons" id="statusChange">
+                <label class="btn btn-outline-primary" style="font-size: 10px">
+                <input type="radio" name="options" id="radioToDo">Todo
+                </label>
+                <label class="btn btn-outline-info" style="font-size: 10px">
+                <input type="radio" name="options" id="radioInProgress">In progress
+                </label>
+                <label class="btn btn-outline-warning" style="font-size: 10px">
+                <input type="radio" name="options" id="radioReview">Review
+                </label>
+                <label class="btn btn-outline-success" style="font-size: 10px">
+                <input type="radio" name="options" id="radioDone">Done
+                </label>
+            </div>
+            <a href="#"><i class="fas fa-edit fa-lg px-2" id="editTaskBtn" style="color:rgb(99, 99, 201)" data-toggle="modal" data-target="#taskModal"></i></a>
+            <a href="#"><i class="fas fa-trash-alt fa-lg" id="deleteTaskBtn" style="color:#dc3545" data-toggle="modal" data-target="#deleteModal"></i></a>
+
+            <form method="post" action="/<%= todo.todo_id%>?_method=DELETE">
+              <input type="hidden" name="todo" value="<%= todo.todo_id%>">
+              <button class="delete-todo-button" type="submit"><i class="fas fa-trash-alt"></i></button>
+            </form>
+          </div>
+        </div>
+      <%})%>
+    <%}else{%>
+      <p class="centered-paragraph">You don't have saved todos yet</p>
+    <%}%>
+  </div>
+</div>
+
+
+
+<!-- <if (modal === 'opened') {>
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <i class="fas fa-check modal-text"></i>
+      <p class="modal-text">Your todo has been saved</p>
+      <a href="/"><button class="button" id="close-modal-button" type="button">Close</button></a>
+    </div>
+  </div>
+<}> -->
+
+<script src="/static/home.js" defer></script>

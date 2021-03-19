@@ -6,22 +6,23 @@ const router = express.Router();
 
 // Get todos
 router.get('/', (req, res) => {
-  db.each('SELECT * FROM todos ORDER BY status ASC, priority ASC, due_date ASC;', row => {
-    const priority = {
+  db.each('SELECT * FROM todos ORDER BY status ASC, priority ASC, due_date ASC;', [], row => {
+    const priorities = {
       1: 'High',
       2: 'Medium',
       3: 'Low'
     };
-    const status = {
+    const statuses = {
       1: 'Todo',
       2: 'In progress',
       3: 'Review',
       4: 'Done'
     };
-    row.priority = priority[row.priority];
-    row.status = status[row.status];
+    row.priority = priorities[row.priority];
+    row.status = statuses[row.status];
   })
   .then((todos) => {
+    console.log(todos)
     res.render('pages/home', {
       todos: todos,
       title: 'Home | TODO',
