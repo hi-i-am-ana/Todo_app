@@ -1,0 +1,25 @@
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE IF NOT EXISTS users (
+    user_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    lastname VARCHAR(50) NOT NULL,
+    firstname VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    password CHAR(60) NOT NULL,
+    active BOOLEAN NOT NULL
+);
+
+DROP TABLE IF EXISTS todos;
+
+CREATE TABLE IF NOT EXISTS todos (
+    todo_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    user_id SMALLINT NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    due_date DATE NOT NULL,
+    status SMALLINT NOT NULL,
+    priority SMALLINT NOT NULL,
+
+    FOREIGN KEY(user_id) 
+      REFERENCES users(user_id)
+      ON DELETE CASCADE
+);
