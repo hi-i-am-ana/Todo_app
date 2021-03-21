@@ -58,7 +58,7 @@ const passwordValid = (inputValue) => {
 };
 
 const setInvalid = (inputAlert, input) => {
-  inputAlert.classList.add('display-inline');
+  inputAlert.classList.add('visibility-visible');
   input.classList.add('red-border');
   validForm = false;
 };
@@ -66,15 +66,15 @@ const setInvalid = (inputAlert, input) => {
 const clearValidation = () => {
   validForm = true;
 
-  emailEmptyAlert.classList.remove('display-inline');
-  passwordEmptyAlert.classList.remove('display-inline');
+  emailEmptyAlert.classList.remove('visibility-visible');
+  passwordEmptyAlert.classList.remove('visibility-visible');
 
-  emailInvalidAlert.classList.remove('display-inline');
-  passwordInvalidAlert.classList.remove('display-inline');
+  emailInvalidAlert.classList.remove('visibility-visible');
+  passwordInvalidAlert.classList.remove('visibility-visible');
 
-  emailMissingAlert.classList.remove('display-inline');
-  emailUnconfirmedAlert.classList.remove('display-inline');
-  passwordIncorrectAlert.classList.remove('display-inline');
+  emailMissingAlert.classList.remove('visibility-visible');
+  emailUnconfirmedAlert.classList.remove('visibility-visible');
+  passwordIncorrectAlert.classList.remove('visibility-visible');
 
   email.classList.remove('red-border');
   password.classList.remove('red-border');

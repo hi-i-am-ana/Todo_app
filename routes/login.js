@@ -1,17 +1,17 @@
 const express = require('express');
 const querystring = require('querystring');
 const bcrypt = require('bcrypt');
-const db = require('../db/db.js');
+const db = require('../db/database.js');
 const loggedInCheck = require('../middleware.js').loggedInCheck;
-const loginRouter = express.Router();
+const router = express.Router();
 
 // Import shared validation function
-const validation = require('../public/shared_login_validation.js');
+const validation = require('../public/js/shared_login_validation.js');
 
 // GET route for login page
 loginRouter.get('/', loggedInCheck, (req, res) => res.render('pages/login', {
-  title: 'Login | Mr.Coffee Schedule Management',
-  current_user: req.session.user,
+  title: 'Login | TODO',
+  currentUser: req.session.user,
   email: req.query.email,
   emailEmptyAlert: req.query.emailEmptyAlert,
   emailInvalidAlert: req.query.emailInvalidAlert,
@@ -79,13 +79,13 @@ loginRouter.post('/', (req, res) => {
           res.redirect(`/login?${query}`);
         } else {
           // If correct password and email has been confirmed, create session
-          req.session.user = user;
+          req.session.user = user.user_id;
           res.redirect('/');
         };
       });
     };
   })  
-  .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', current_user: req.session.user}));
+  .catch((err) => res.render('pages/error', {err: err, title: 'Error | TODO', currentUser: req.session.user}));
 });
 
-module.exports = loginRouter;
+module.exports = router;

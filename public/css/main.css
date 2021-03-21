@@ -1,0 +1,13 @@
+.form-alert {
+  visibility: hidden;
+  color: red;
+  font-size: 1.3rem;
+}
+
+.red-border {
+  border: solid 1px red;
+}
+
+.visibility-visible {
+  visibility: visible;
+}

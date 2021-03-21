@@ -1,27 +1,27 @@
 <h2>Log In</h2>
 
 <form id="form" method="post" action="/login" novalidate>
-  <fieldset>
-    <label for="email">Email *</label>
-    <input class="form-field <%if(emailEmptyAlert==='true'||emailInvalidAlert==='true'||emailMissingAlert==='true'||emailUnconfirmedAlert==='true'){%>red-border<%}%>" type="email" id="email" name="email" value="<%if(email!==''){%><%= email%><%}%>">
-    <span class="tooltip-form-alert <%if(emailEmptyAlert==='true'){%>display-inline<%}%>" id="email-empty-alert">Please enter your email address</span>
-    <span class="tooltip-form-alert <%if(emailInvalidAlert==='true'){%>display-inline<%}%>" id="email-invalid-alert">Email has invalid format</span>
-    <span class="tooltip-form-alert <%if(emailMissingAlert==='true'){%>display-inline<%}%>" id="email-missing-alert">User with this email does not exist</span>
-    <span class="tooltip-form-alert <%if(emailUnconfirmedAlert==='true'){%>display-inline<%}%>" id="email-unconfirmed-alert">Please confirm your email address</span>
-  </fieldset>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email Address *</label>
+    <input type="email" class="form-control <%if(emailEmptyAlert==='true'||emailInvalidAlert==='true'||emailMissingAlert==='true'||emailUnconfirmedAlert==='true'){%>red-border<%}%>" id="email" name="email" value="<%if(email!==''){%><%= email%><%}%>">
+    <div class="form-alert <%if(emailEmptyAlert==='true'){%>visibility-visible<%}%>" id="email-empty-alert">Please enter your email address</div>
+    <div class="form-alert <%if(emailInvalidAlert==='true'){%>visibility-visible<%}%>" id="email-invalid-alert">Email address has invalid format</div>
+    <div class="form-alert <%if(emailMissingAlert==='true'){%>visibility-visible<%}%>" id="email-missing-alert">User with this email address does not exist</div>
+    <div class="form-alert <%if(emailUnconfirmedAlert==='true'){%>visibility-visible<%}%>" id="email-unconfirmed-alert">Please confirm your email address</div>
+  </div>
 
-  <fieldset>
-    <label for="password">Password *</label>
-    <input class="form-field <%if(passwordEmptyAlert==='true'||passwordInvalidAlert==='true'||passwordIncorrectAlert==='true'){%>red-border<%}%>" type="password" id="password" name="password">
-    <span class="tooltip-form-alert <%if(passwordEmptyAlert==='true'){%>display-inline<%}%>" id="password-empty-alert">Please enter your password</span>
-    <span class="tooltip-form-alert <%if(passwordInvalidAlert==='true'){%>display-inline<%}%>" id="password-invalid-alert">Password has invalid format</span>
-    <span class="tooltip-form-alert <%if(passwordIncorrectAlert==='true'){%>display-inline<%}%>" id="password-incorrect-alert">You have entered incorrect password</span>
-  </fieldset>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password *</label>
+    <input type="password" class="form-control <%if(passwordEmptyAlert==='true'||passwordInvalidAlert==='true'||passwordIncorrectAlert==='true'){%>red-border<%}%>" id="password" name="password">
+    <div class="form-alert <%if(passwordEmptyAlert==='true'){%>display-inline<%}%>" id="password-empty-alert">Please enter your password</div>
+    <div class="form-alert <%if(passwordInvalidAlert==='true'){%>display-inline<%}%>" id="password-invalid-alert">Password has invalid format</div>
+    <div class="form-alert <%if(passwordIncorrectAlert==='true'){%>display-inline<%}%>" id="password-incorrect-alert">You have entered incorrect password</div>
+  </div>
 
   <button class="button" type="submit">Log In</button>
 </form>
 
-<p class="centered-paragraph">Don't have an account yet? <a href="/signup">Sign Up now</a></p>
-<p class="centered-paragraph">Forgot your password? <a href="/password/forgot">Click here</a></p>
+<p class="centered-paragraph">Don't have an account yet? <a href="/signup">Sign Up</a></p>
+<p class="centered-paragraph"><a href="/password/forgot">Forgot your password?</a></p>
 
 <script src="/static/login.js" defer></script>
