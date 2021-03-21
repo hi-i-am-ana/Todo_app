@@ -23,3 +23,29 @@ CREATE TABLE IF NOT EXISTS todos (
       REFERENCES users(user_id)
       ON DELETE CASCADE
 );
+
+DROP TABLE IF EXISTS email_confirmation;
+
+CREATE TABLE IF NOT EXISTS email_confirmation (
+    hash_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    hash CHAR(60) NOT NULL,
+    create_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    FOREIGN KEY(email) 
+      REFERENCES users(email)
+      ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS email_confirmation;
+
+CREATE TABLE IF NOT EXISTS password_reset (
+    hash_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    hash CHAR(60) NOT NULL,
+    create_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    FOREIGN KEY(email) 
+      REFERENCES users(email)
+      ON DELETE CASCADE
+);
