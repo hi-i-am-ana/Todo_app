@@ -45,7 +45,7 @@
     <%if(todos.length!==0) {%>
       <% todos.forEach(todo => { %>
         
-        <div class="card" id=<%= todo.todo_id%>>
+        <div class="card col-3" id=<%= todo.todo_id%>>
           <div class="card-body">
             <h5 class="card-title"><%= todo.name%></h5> 
             <h6 class="card-subtitle mb-2 text-muted">Due date: <%= todo.due_date%></h6>

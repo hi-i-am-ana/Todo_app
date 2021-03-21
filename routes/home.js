@@ -37,18 +37,18 @@ router.get('/', (req, res) => {
   }));
 });
 
-// Post new schedule
+// Post new todo
 router.post('/', (req, res) => {
-  console.log(req.body.due_date);
+  console.log(req.body);
   newTodo = {
     // user_id: req.session.user.user_id,
     user_id: req.body.user_id,
     name: req.body.name,
     due_date: req.body.due_date,
     status: req.body.status,
-    end_time: req.body.priority
+    priority: req.body.priority
   };
-  db.none('INSERT INTO todos (user_id, name, due_date, status, priority) VALUES (${newTodo.user_id}, ${newTodo.due_date}, ${newTodo.status}, ${newTodo.priority});', {newTodo})
+  db.none('INSERT INTO todos (user_id, name, due_date, status, priority) VALUES (${newTodo.user_id}, ${newTodo.name}, ${newTodo.due_date}, ${newTodo.status}, ${newTodo.priority});', {newTodo})
   // Redirect back to home page with modal opened
   .then(() => {
     const query = querystring.stringify({modal: 'opened'});
