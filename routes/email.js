@@ -1,9 +1,10 @@
 const express = require('express');
-const db = require('../db/db.js');
+const db = require('../db/database.js');
 const loggedInCheck = require('../middleware.js').loggedInCheck;
-const emailRouter = express.Router();
 
-emailRouter.get('/:id', loggedInCheck, (req, res) => {
+const router = express.Router();
+
+router.get('/:id', loggedInCheck, (req, res) => {
   db.one('SELECT email FROM email_confirmation WHERE hash = $1;', req.params.id)
   .then((row) => {
     db.none('UPDATE users SET active = $1 WHERE email = $2;', [true, row.email])
@@ -17,9 +18,9 @@ emailRouter.get('/:id', loggedInCheck, (req, res) => {
   })
   .catch((err) => res.status(404).render('pages/error', {
     err: {message: 'HTTP ERROR 404. This page can not be found'},
-    title: 'Error | Mr.Coffee Schedule Management',
-    current_user: req.session.user
+    title: 'Error | TODO',
+    currentUser: req.session.user
   }));
 });
 
-module.exports = emailRouter;
+module.exports = router;

@@ -3,17 +3,17 @@ const crypto = require('crypto');
 const querystring = require('querystring');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
-const db = require('../db/db.js');
+const db = require('../db/database.js');
 const loggedInCheck = require('../middleware.js').loggedInCheck;
-const signupRouter = express.Router();
-
 // Import shared validation function
-const validation = require('../public/shared_signup_validation.js');
+const validation = require('../public/js/shared_signup_validation.js');
+
+const router = express.Router();
 
 // GET route for signup page
-signupRouter.get('/', loggedInCheck, (req, res) => res.render('pages/signup', {
+router.get('/', loggedInCheck, (req, res) => res.render('pages/signup', {
   title: 'Sign Up | Mr.Coffee Schedule Management',
-  current_user: req.session.user,
+  currentUser: req.session.user,
   modal: req.query.modal,
   firstname: req.query.firstname,
   lastname: req.query.lastname,
@@ -32,7 +32,7 @@ signupRouter.get('/', loggedInCheck, (req, res) => res.render('pages/signup', {
 }));
 
 // POST route for signup page
-signupRouter.post('/', (req, res) => {
+router.post('/', (req, res) => {
   let queryParams = {
     firstname: '',
     lastname: '',
@@ -138,13 +138,13 @@ signupRouter.post('/', (req, res) => {
               };
             });
           })
-          .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', current_user: req.session.user}));
+          .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', currentUser: req.session.user}));
         })
-        .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', current_user: req.session.user}));
+        .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', currentUser: req.session.user}));
       });
     };
   })
-  .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', current_user: req.session.user}));
+  .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', currentUser: req.session.user}));
 });
 
-module.exports = signupRouter;
+module.exports = router;

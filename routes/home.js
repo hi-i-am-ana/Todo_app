@@ -1,11 +1,12 @@
 const express = require('express');
 const querystring = require('querystring');
 const db = require('../db/database.js');
-// const loggedOutCheck = require('../middleware.js').loggedOutCheck;
+const loggedOutCheck = require('../middleware.js').loggedOutCheck;
+
 const router = express.Router();
 
-// Get todos
-router.get('/', (req, res) => {
+// GET todos
+router.get('/', loggedOutCheck, (req, res) => {
   db.each('SELECT * FROM todos ORDER BY status ASC, priority ASC, due_date ASC;', [], row => {
     const priorities = {
       1: 'High',
@@ -22,27 +23,25 @@ router.get('/', (req, res) => {
     row.status = statuses[row.status];
   })
   .then((todos) => {
-    console.log(todos)
     res.render('pages/home', {
       todos: todos,
       title: 'Home | TODO',
-      // current_user: req.session.user,
-      // modal: req.query.modal
+      currentUser: req.session.user,
+      modal: req.query.modal
     });
   })
   .catch((err) => res.render('pages/error', {
     err: err,
     title: 'Error | TODO',
-    // current_user: req.session.user
+    currentUser: req.session.user
   }));
 });
 
-// Post new todo
+// POST new todo
 router.post('/', (req, res) => {
   console.log(req.body);
   newTodo = {
-    // user_id: req.session.user.user_id,
-    user_id: req.body.user_id,
+    user_id: req.session.user,
     name: req.body.name,
     due_date: req.body.due_date,
     status: req.body.status,
@@ -57,11 +56,11 @@ router.post('/', (req, res) => {
   .catch((err) => res.render('pages/error', {
     err: err,
     title: 'Error | TODO',
-    // current_user: req.session.user
+    currentUser: req.session.user
   }));
 });
 
-// Delete todo
+// DELETE todo
 router.delete('/:id', (req,res) => {
   // console.log(req.body);
   // console.log(req.method);
@@ -71,7 +70,7 @@ router.delete('/:id', (req,res) => {
   .catch((err) => res.render('pages/error', {
     err: err,
     title: 'Error | TODO',
-    // current_user: req.session.user
+    currentUser: req.session.user
   }));
 });
 

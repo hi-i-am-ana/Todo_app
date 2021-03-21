@@ -3,13 +3,13 @@ const querystring = require('querystring');
 const bcrypt = require('bcrypt');
 const db = require('../db/database.js');
 const loggedInCheck = require('../middleware.js').loggedInCheck;
-const router = express.Router();
-
 // Import shared validation function
 const validation = require('../public/js/shared_login_validation.js');
 
+const router = express.Router();
+
 // GET route for login page
-loginRouter.get('/', loggedInCheck, (req, res) => res.render('pages/login', {
+router.get('/', loggedInCheck, (req, res) => res.render('pages/login', {
   title: 'Login | TODO',
   currentUser: req.session.user,
   email: req.query.email,
@@ -23,7 +23,7 @@ loginRouter.get('/', loggedInCheck, (req, res) => res.render('pages/login', {
 }));
 
 // POST route for login page
-loginRouter.post('/', (req, res) => {
+router.post('/', (req, res) => {
   let queryParams = {
     email: '',
     emailEmptyAlert: false,

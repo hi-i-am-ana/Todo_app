@@ -3,18 +3,18 @@ const crypto = require('crypto');
 const querystring = require('querystring');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
-const db = require('../db/db.js');
+const db = require('../db/database.js');
 const loggedInCheck = require('../middleware.js').loggedInCheck;
-const passwordRouter = express.Router();
-
 // Import shared validation functions
-const validationForgot = require('../public/shared_password_forgot_validation.js');
-const validationReset = require('../public/shared_password_reset_validation.js');
+const validationForgot = require('../public/js/shared_password_forgot_validation.js');
+const validationReset = require('../public/js/shared_password_reset_validation.js');
+
+const router = express.Router();
 
 // GET route for password FORGOT page
-passwordRouter.get('/forgot', loggedInCheck, (req, res) => res.render('pages/password_forgot', {
+router.get('/forgot', loggedInCheck, (req, res) => res.render('pages/password_forgot', {
   title: 'Forgot Password | Mr.Coffee Schedule Management',
-  current_user: req.session.user,
+  currentUser: req.session.user,
   modal: req.query.modal,
   email: req.query.email,
   emailEmptyAlert: req.query.emailEmptyAlert,
@@ -24,9 +24,9 @@ passwordRouter.get('/forgot', loggedInCheck, (req, res) => res.render('pages/pas
 }));
 
 // GET route for password RESET page
-passwordRouter.get('/reset/:id', loggedInCheck, (req, res) => res.render('pages/password_reset', {
+router.get('/reset/:id', loggedInCheck, (req, res) => res.render('pages/password_reset', {
   title: 'Forgot Password | Mr.Coffee Schedule Management',
-  current_user: req.session.user,
+  currentUser: req.session.user,
   passwordResetHash: req.params.id,
   modal: req.query.modal,
   passwordEmptyAlert: req.query.passwordEmptyAlert,
@@ -36,7 +36,7 @@ passwordRouter.get('/reset/:id', loggedInCheck, (req, res) => res.render('pages/
 }));
 
 // POST route for password FORGOT page
-passwordRouter.post('/forgot', (req, res) => {
+router.post('/forgot', (req, res) => {
   let queryParams = {
     email: '',
     emailEmptyAlert: false,
@@ -116,14 +116,14 @@ passwordRouter.post('/forgot', (req, res) => {
           };
         });
       })
-      .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', current_user: req.session.user}));
+      .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', currentUser: req.session.user}));
     };
   })  
-  .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', current_user: req.session.user}));
+  .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', currentUser: req.session.user}));
 });
 
 // POST route for password RESET page
-passwordRouter.post('/reset/:id', (req, res) => {
+router.post('/reset/:id', (req, res) => {
   let queryParams = {
     passwordEmptyAlert: false,
     passwordInvalidAlert: false,
@@ -163,17 +163,15 @@ passwordRouter.post('/reset/:id', (req, res) => {
         .then(() => {
           db.none('DELETE from password_reset WHERE hash = $1;', req.params.id);
         })
-        .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', current_user: req.session.user}));
+        .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', currentUser: req.session.user}));
       });
     };
   })
   .catch((err) => res.status(404).render('pages/error', {
     err: {message: 'HTTP ERROR 404. This page can not be found'},
     title: 'Error | Mr.Coffee Schedule Management',
-    current_user: req.session.user
+    currentUser: req.session.user
   }));
 });
 
-
-
-module.exports = passwordRouter;
+module.exports = router;
