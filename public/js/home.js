@@ -8,76 +8,76 @@ for (let radio of radioStatusList) {
   };
 };
 
+const newTodoForm = document.getElementById('new-todo-form');
 
+// Select input fields
+const name = document.getElementById('name');
+const dueDate = document.getElementById('due_date');
+const priority = document.getElementById('priority');
+const status = document.getElementById('status');
 
-// const form = document.getElementById('form');
+// Select validation alerts
+const nameEmptyAlert = document.getElementById('name-empty-alert');
+const dueDateEmptyAlert = document.getElementById('due_date-empty-alert');
+const priorityEmptyAlert = document.getElementById('priority-empty');
+const statusEmptyAlert = document.getElementById('status-empty-alert');
 
-// // Select input fields
-// const day = document.getElementById('day');
-// const startTime = document.getElementById('start_time');
-// const endTime = document.getElementById('end_time');
+// Create variable to save validation status
+let validForm;
 
-// // Select validation alerts
-// const dayEmptyAlert = document.getElementById('day-empty-alert');
-// const startTimeEmptyAlert = document.getElementById('start-time-empty-alert');
-// const endTimeEmptyAlert = document.getElementById('end-time-empty-alert');
-// const timeInvalidAlert = document.getElementById('time-invalid-alert');
+newTodoForm.onsubmit = (event) => {
+  // Get values of input fields
+  const nameValue = name.value;
+  const dueDateValue = dueDate.value;
+  const priorityValue = priority.value;
+  const statusValue = status.value;
 
-// // Create variable to save validation status
-// let validForm;
+  clearValidation();
 
-// form.onsubmit = (event) => {
-//   // Get values of input fields
-//   const dayValue = day.value;
-//   const startTimeValue = startTime.value;
-//   const endTimeValue = endTime.value;
+  // Validate name (must not be empty)
+  if (!inputNotEmpty(nameValue)) {
+    setInvalid(nameEmptyAlert, name);
+  };
 
-//   clearValidation();
+  // Validate due date (must not be empty)
+  if (!inputNotEmpty(dueDateValue)) {
+    setInvalid(dueDateEmptyAlert, dueDate);
+  };
 
-//   // Validate day (must not be empty)
-//   if (!inputNotEmpty(dayValue)) {
-//     setInvalid(dayEmptyAlert, day);
-//   };
+  // Validate priority (must not be empty)
+  if (!inputNotEmpty(priority)) {
+    setInvalid(priorityEmptyAlert, priority);
+  };
 
-//   // Validate start time (must not be empty)
-//   if (!inputNotEmpty(startTimeValue)) {
-//     setInvalid(startTimeEmptyAlert, startTime);
-//   };
+  // Validate status (must not be empty)
+  if (!inputNotEmpty(status)) {
+    setInvalid(statusEmptyAlert, status);
+  };
 
-//   // Validate end time (must not be empty)
-//   if (!inputNotEmpty(endTimeValue)) {
-//     setInvalid(endTimeEmptyAlert, endTime);
-//   };
+  if (!validForm) {
+    event.preventDefault();
+  };
+};
 
-//   // Validate time (end time must be later than start time)
-//   if (!timeValid(startTimeValue, endTimeValue) && inputNotEmpty(startTimeValue) && inputNotEmpty(endTimeValue)) {
-//     setInvalid(timeInvalidAlert, endTime);
-//   };
+const inputNotEmpty = (inputValue) => inputValue !== '';
 
-//   if (!validForm) {
-//     event.preventDefault();
-//   };
-// };
+const  timeValid = (startTimeValue, endTimeValue) => startTimeValue < endTimeValue;
 
-// const inputNotEmpty = (inputValue) => inputValue !== '';
+const setInvalid = (inputAlert, input) => {
+  inputAlert.style.display = 'inline';
+  input.style.border = 'solid 1px red';
+  validForm = false;
+};
 
-// const  timeValid = (startTimeValue, endTimeValue) => startTimeValue < endTimeValue;
+const clearValidation = () => {
+  validForm = true;
 
-// const setInvalid = (inputAlert, input) => {
-//   inputAlert.style.display = 'inline';
-//   input.style.border = 'solid 1px red';
-//   validForm = false;
-// };
+  dayEmptyAlert.style.display = 'none';
+  startTimeEmptyAlert.style.display = 'none';
+  endTimeEmptyAlert.style.display = 'none';
+  timeInvalidAlert.style.display = 'none';
 
-// const clearValidation = () => {
-//   validForm = true;
-
-//   dayEmptyAlert.style.display = 'none';
-//   startTimeEmptyAlert.style.display = 'none';
-//   endTimeEmptyAlert.style.display = 'none';
-//   timeInvalidAlert.style.display = 'none';
-
-//   day.style.border = '';
-//   startTime.style.border = '';
-//   endTime.style.border = '';
-// };
+  day.style.border = '';
+  startTime.style.border = '';
+  endTime.style.border = '';
+};

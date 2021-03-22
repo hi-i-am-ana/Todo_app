@@ -4,6 +4,10 @@ body {
   font-family: 'Raleway', sans-serif !important;
 }
 
+/* h2, p {
+  text-align: center;
+} */
+
 legend {
   font-size: inherit !important;
 }
@@ -17,17 +21,13 @@ legend {
 }
 
 .form-alert {
-  visibility: hidden;
+  display: none;
   color: red;
   /* font-size: 1.3rem; */
 }
 
 .red-border {
   border: solid 1px red;
-}
-
-.visibility-visible {
-  visibility: visible;
 }
 
 .display-block {
