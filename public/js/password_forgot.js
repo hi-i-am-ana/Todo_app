@@ -41,7 +41,7 @@ const emailValid = (inputValue) => {
 };
 
 const setInvalid = (inputAlert, input) => {
-  inputAlert.classList.add('display-inline');
+  inputAlert.classList.add('display-block');
   input.classList.add('red-border');
   validForm = false;
 };
@@ -49,10 +49,10 @@ const setInvalid = (inputAlert, input) => {
 const clearValidation = () => {
   validForm = true;
 
-  emailEmptyAlert.classList.remove('display-inline');
-  emailInvalidAlert.classList.remove('display-inline');
-  emailMissingAlert.classList.remove('display-inline');
-  emailUnconfirmedAlert.classList.remove('display-inline');
+  emailEmptyAlert.classList.remove('display-block');
+  emailInvalidAlert.classList.remove('display-block');
+  emailMissingAlert.classList.remove('display-block');
+  emailUnconfirmedAlert.classList.remove('display-block');
 
   email.classList.remove('red-border');
 };

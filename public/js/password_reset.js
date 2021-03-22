@@ -11,16 +11,6 @@ const confirmPasswordEmptyAlert = document.getElementById('confirmPassword-empty
 const passwordInvalidAlert = document.getElementById('password-invalid-alert');
 const confirmPasswordMatchAlert = document.getElementById("confirmPassword-match-alert");
 
-const passwordInfo = document.getElementById('password-info');
-
-// Show and hide tooltip with password requirements info
-password.onfocus = () => {
-  passwordInfo.classList.add('display-inline');
-}
-password.onblur = () => {
-  passwordInfo.classList.remove('display-inline');
-}
-
 // Create variable to save validation status
 let validForm;
 
@@ -60,7 +50,7 @@ const passwordValid = (inputValue) => {
 const passwordMatch = (passwordValue, confirmPasswordValue) => passwordValue === confirmPasswordValue;
 
 const setInvalid = (inputAlert, input) => {
-  inputAlert.classList.add('display-inline');
+  inputAlert.classList.add('display-block');
   input.classList.add('red-border');
   validForm = false;
 };
@@ -68,10 +58,10 @@ const setInvalid = (inputAlert, input) => {
 const clearValidation = () => {
   validForm = true;
 
-  passwordEmptyAlert.classList.remove('display-inline');
-  confirmPasswordEmptyAlert.classList.remove('display-inline');
-  passwordInvalidAlert.classList.remove('display-inline');
-  confirmPasswordMatchAlert.classList.remove('display-inline');
+  passwordEmptyAlert.classList.remove('display-block');
+  confirmPasswordEmptyAlert.classList.remove('display-block');
+  passwordInvalidAlert.classList.remove('display-block');
+  confirmPasswordMatchAlert.classList.remove('display-block');
 
   password.classList.remove('red-border');
   confirmPassword.classList.remove('red-border');
