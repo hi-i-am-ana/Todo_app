@@ -4,6 +4,7 @@ const querystring = require('querystring');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const db = require('../db/database.js');
+const { host, port, gmailhost, gmailport, gmailuser, gmailpassword } = require('../config');
 const loggedInCheck = require('../middleware.js').loggedInCheck;
 // Import shared validation functions
 const validationForgot = require('../public/js/shared_password_forgot_validation.js');
@@ -13,7 +14,7 @@ const router = express.Router();
 
 // GET route for password FORGOT page
 router.get('/forgot', loggedInCheck, (req, res) => res.render('pages/password_forgot', {
-  title: 'Forgot Password | Mr.Coffee Schedule Management',
+  title: 'Forgot Password | TODO',
   currentUser: req.session.user,
   modal: req.query.modal,
   email: req.query.email,
@@ -25,7 +26,7 @@ router.get('/forgot', loggedInCheck, (req, res) => res.render('pages/password_fo
 
 // GET route for password RESET page
 router.get('/reset/:id', loggedInCheck, (req, res) => res.render('pages/password_reset', {
-  title: 'Forgot Password | Mr.Coffee Schedule Management',
+  title: 'Forgot Password | TODO',
   currentUser: req.session.user,
   passwordResetHash: req.params.id,
   modal: req.query.modal,
@@ -84,30 +85,33 @@ router.post('/forgot', (req, res) => {
         // TODO: Move email sending function to a separate module
         // Send email with link to reset password
         const transporter = nodemailer.createTransport({
-          host: process.env.GMAIL_HOST,
-          port: process.env.GMAIL_PORT,
+          host: gmailhost,
+          port: gmailport,
           secure: false,
           auth: {
-            user: process.env.GMAIL_USERNAME,
-            pass: process.env.GMAIL_PASSWORD,
+            user: gmailuser,
+            pass: gmailpassword,
           },
           tls: {
             rejectUnauthorized: false
           }
         });
         const mailOptions = {
-          from: '"Mr.Coffee" <hi.i.am.anastasia@gmail.com>',
+          from: '"TODO" <hi.i.am.anastasia@gmail.com>',
           to: `${user.email}`,
           subject: 'Reset your password',
           html: `
           <h3>Reset your password</h3>
           <p>Please click on the following link to complete the process:</p>
-          <a href="http://${process.env.HOST}:${process.env.PORT}/password/reset/${passwordResetHash}">http://${process.env.HOST}:${process.env.PORT}/password/reset/${passwordResetHash}</a>
+          <a href="http://${host}:${port}/password/reset/${passwordResetHash}">http://${host}:${port}/password/reset/${passwordResetHash}</a>
           `
         };
         transporter.sendMail(mailOptions, (err, info) => {
           if (err) {
-            res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', current_user: req.session.user})
+            res.render('pages/error', {
+              err: err,
+              title: 'Error | TODO',
+              currentUser: req.session.user})
           } else {
             // console.log('Message sent: %s', info.messageId);
             // Redirect back to password forgot page with modal opened
@@ -116,10 +120,16 @@ router.post('/forgot', (req, res) => {
           };
         });
       })
-      .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', currentUser: req.session.user}));
+      .catch((err) => res.render('pages/error', {
+        err: err,
+        title: 'Error | TODO',
+        currentUser: req.session.user}));
     };
   })  
-  .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', currentUser: req.session.user}));
+  .catch((err) => res.render('pages/error', {
+    err: err,
+    title: 'Error | TODO',
+    currentUser: req.session.user}));
 });
 
 // POST route for password RESET page
@@ -163,13 +173,16 @@ router.post('/reset/:id', (req, res) => {
         .then(() => {
           db.none('DELETE from password_reset WHERE hash = $1;', req.params.id);
         })
-        .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', currentUser: req.session.user}));
+        .catch((err) => res.render('pages/error', {
+          err: err,
+          title: 'Error | TODO',
+          currentUser: req.session.user}));
       });
     };
   })
   .catch((err) => res.status(404).render('pages/error', {
     err: {message: 'HTTP ERROR 404. This page can not be found'},
-    title: 'Error | Mr.Coffee Schedule Management',
+    title: 'Error | TODO',
     currentUser: req.session.user
   }));
 });
