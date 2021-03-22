@@ -1,105 +1,232 @@
-<h2>Add new todo</h2>
-
-<form id="form" method="post" action="/" novalidate>
-
-  <fieldset class="form-group">
-    <label for="name">Todo name *</label>
-    <input class="form-control" type="text" id="name" name="name">
-  </fieldset>
-
-  <fieldset class="form-group">
-    <label for="due_date">Due date *</label>
-    <input class="form-control" id="due_date" type="date" name="due_date">
-  </fieldset>
-
-  <fieldset class="form-group">
-    <label for="priority">Priority *</label>
-    <select class="form-control" id="priority" name="priority">
-      <option disabled selected value="">Select priority</option>
-      <option value='1'>High</option>
-      <option value='2'>Medium</option>
-      <option value='3'>Low</option>
-    </select>
-  </fieldset>
-
-  <fieldset class="form-group">
-    <label for="status">Status *</label>
-    <select class="form-control" id="Status" name="Status">
-      <option disabled selected value="">Select status</option>
-      <option value='1'>Todo</option>
-      <option value='2'>In progress</option>
-      <option value='3'>Review</option>
-      <option value='3'>Done</option>
-    </select>
-  </fieldset>
-
-  <button class="button" type="submit">Save</button>
-</form>
-
-<div class="container-fluid mt-5">
-  <div class="row mx-3">
-    <h2 class="mt-4">Todo list</h2>
+<div class="container-fluid">
+  <div class="row">
+    <h2 class="mt-3">Add New Todo</h2>
   </div>
 
-  <div class="row mx-3" id="todo-container">
-    <%if(todos.length!==0) {%>
-      <% todos.forEach(todo => { %>
-        
-        <div class="card col-3" id=<%= todo.todo_id%>>
-          <div class="card-body">
-            <h5 class="card-title"><%= todo.name%></h5> 
-            <h6 class="card-subtitle mb-2 text-muted">Due date: <%= todo.due_date%></h6>
-            <div class="alert
-              <% if(todo.status === 4) {%>alert-success<%}%>
-              <% if(todo.status === 3) {%>alert-warning<%}%>
-              <% if(todo.status === 2) {%>alert-primary<%}%>
-              <% if(todo.status === 1) {%>alert-info<%}%>
-              ">Status: <%= todo.status%></div>
-            <div class="badge mb-4
-              <% if(todo.priority === 1) {%>badge-danger<%}%>
-              <% if(todo.priority === 2) {%>badge-primary<%}%>
-              <% if(todo.priority === 3) {%>badge-secondary<%}%>
-              " style="width:100%">Priority: <%= todo.priority%></div>
-            <div class="btn-group btn-group-toggle mb-3" style="width:100%" data-toggle="buttons" id="statusChange">
-                <label class="btn btn-outline-primary" style="font-size: 10px">
-                <input type="radio" name="options" id="radioToDo">Todo
-                </label>
-                <label class="btn btn-outline-info" style="font-size: 10px">
-                <input type="radio" name="options" id="radioInProgress">In progress
-                </label>
-                <label class="btn btn-outline-warning" style="font-size: 10px">
-                <input type="radio" name="options" id="radioReview">Review
-                </label>
-                <label class="btn btn-outline-success" style="font-size: 10px">
-                <input type="radio" name="options" id="radioDone">Done
-                </label>
-            </div>
-            <a href="#"><i class="fas fa-edit fa-lg px-2" id="editTaskBtn" style="color:rgb(99, 99, 201)" data-toggle="modal" data-target="#taskModal"></i></a>
-            <a href="#"><i class="fas fa-trash-alt fa-lg" id="deleteTaskBtn" style="color:#dc3545" data-toggle="modal" data-target="#deleteModal"></i></a>
-
-            <form method="post" action="/<%= todo.todo_id%>?_method=DELETE">
-              <input type="hidden" name="todo" value="<%= todo.todo_id%>">
-              <button class="delete-todo-button" type="submit"><i class="fas fa-trash-alt"></i></button>
-            </form>
-          </div>
+  <div class="row">
+    <div class="col-md-4">
+      <form class="row" id="form" method="post" action="/" novalidate>
+        <div class="col-12 mb-3">
+          <label for="name" class="form-label">Todo *</label>
+          <input class="form-control" type="text" id="name" name="name">
         </div>
-      <%})%>
+
+        <div class="col-md-6 mb-3">
+          <label for="due_date" class="form-label">Due date *</label>
+          <input class="form-control" id="due_date" type="date" name="due_date">
+        </div>
+
+        <fieldset class=" col-md-6 mb-3">
+          <legend class="form-label">Priority *</legend>
+
+          <input type="radio" class="btn-check" name="priority" value='1' id="high-priority">
+          <label class="btn btn-outline-danger" for="high-priority">High</label>
+
+          <input type="radio" class="btn-check" name="priority" value='2' id="medium-priority">
+          <label class="btn btn-outline-primary" for="medium-priority">Medium</label>
+
+          <input type="radio" class="btn-check" name="priority" value='3' id="low-priority">
+          <label class="btn btn-outline-secondary" for="low-priority">Low</label>
+        </fieldset>
+
+        <fieldset class="col-12 mb-3">
+          <legend class="form-label">Status *</legend>
+
+          <input type="radio" class="btn-check" name="status" value='1' id="todo-status" checked>
+          <label class="btn btn-outline-warning" for="todo-status">Todo</label>
+
+          <input type="radio" class="btn-check" name="status" value='2' id="inprogress-status">
+          <label class="btn btn-outline-info" for="inprogress-status">In progress</label>
+
+          <input type="radio" class="btn-check" name="status" value='3' id="review-status">
+          <label class="btn btn-outline-primary" for="review-status">Review</label>
+
+          <input type="radio" class="btn-check" name="status" value='4' id="done-status">
+          <label class="btn btn-outline-success" for="done-status">Done</label>
+        </fieldset>
+
+        <button type="submit" class="btn btn-success shadow">Save</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <h2 class="mt-3">All Todos</h2>
+  </div>
+
+  <div class="row" id="todo-container">
+    <%if(todos.length!==0) {%>
+      <!-- Todo column -->
+      <div class="col-3">
+        <div class="row">
+          <h3>Todo</h2>
+        </div>
+
+        <div class="row">
+          <% todos.forEach(todo => { %>
+            <% if(todo.status==='Todo') { %>
+              <div class="card border-warning mb-3 mx-3" id="todo-<%= todo.todo_id%>">
+                <div class="card-body">
+                  <h5 class="card-title"><%= todo.name%></h5> 
+                  <p class="card-text text-muted"><i class="far fa-clock"></i> <%= todo.due_date%> &nbsp;<span class="badge rounded-pill <%if(todo.priority==='High'){%>bg-danger<%}%> <%if(todo.priority==='Medium'){%>bg-primary<%}%> <%if(todo.priority==='Low'){%>bg-secondary<%}%>"><%= todo.priority%></span></p>
+                </div>
+                <div class="card-footer bg-transparent border-warning d-flex justify-content-between">
+                  <form method="post" action="/<%= todo.todo_id%>?_method=PUT">
+                    <div class="btn-group btn-group-sm" id="test" role="group" aria-label="Basic radio toggle button group">
+                      <input type="radio" class="btn-check radio-status" name="status" value="1" id="radio-todo-<%= todo.todo_id%>">
+                      <label class="btn btn-outline-warning" for="radio-todo-<%= todo.todo_id%>">Todo</label>
+
+                      <input type="radio" class="btn-check radio-status" name="status" value="2" id="radio-inprogress-<%= todo.todo_id%>">
+                      <label class="btn btn-outline-info" for="radio-inprogress-<%= todo.todo_id%>">In progress</label>
+                    
+                      <input type="radio" class="btn-check radio-status" name="status" value="3" id="radio-review-<%= todo.todo_id%>">
+                      <label class="btn btn-outline-primary" for="radio-review-<%= todo.todo_id%>">Review</label>
+
+                      <input type="radio" class="btn-check radio-status" name="status" value="4" id="radio-done-<%= todo.todo_id%>">
+                      <label class="btn btn-outline-success" for="radio-done-<%= todo.todo_id%>">Done</label>
+                    </div>
+                    <button class="change-todo-status-button" id="change-todo-status-button-<%= todo.todo_id%>" type="submit"></button>
+                  </form>
+
+                  <form method="post" action="/<%= todo.todo_id%>?_method=DELETE">
+                    <button class="btn btn-danger btn-sm delete-todo-button" type="submit"><i class="fas fa-trash-alt"></i></button>
+                  </form>
+                </div>
+              </div>
+            <%}%>
+          <%})%>
+        </div>
+      </div>
+
+      <!-- In progress column -->
+      <div class="col-3">
+        <div class="row">
+          <h3>In progress</h2>
+        </div>
+
+        <div class="row">
+          <% todos.forEach(todo => { %>
+            <% if(todo.status==='In progress') { %>
+              <div class="card border-info mb-3 mx-3" id="todo-<%= todo.todo_id%>">
+                <div class="card-body">
+                  <h5 class="card-title"><%= todo.name%></h5> 
+                  <p class="card-text text-muted"><i class="far fa-clock"></i> <%= todo.due_date%> &nbsp;<span class="badge rounded-pill <%if(todo.priority==='High'){%>bg-danger<%}%> <%if(todo.priority==='Medium'){%>bg-primary<%}%> <%if(todo.priority==='Low'){%>bg-secondary<%}%>"><%= todo.priority%></span></p>
+                </div>
+                <div class="card-footer bg-transparent border-info d-flex justify-content-between">
+                  <form method="post" action="/<%= todo.todo_id%>?_method=PUT">
+                    <div class="btn-group btn-group-sm" id="test" role="group" aria-label="Basic radio toggle button group">
+                      <input type="radio" class="btn-check radio-status" name="status" value="1" id="radio-todo-<%= todo.todo_id%>">
+                      <label class="btn btn-outline-warning" for="radio-todo-<%= todo.todo_id%>">Todo</label>
+
+                      <input type="radio" class="btn-check radio-status" name="status" value="2" id="radio-inprogress-<%= todo.todo_id%>">
+                      <label class="btn btn-outline-info" for="radio-inprogress-<%= todo.todo_id%>">In progress</label>
+                    
+                      <input type="radio" class="btn-check radio-status" name="status" value="3" id="radio-review-<%= todo.todo_id%>">
+                      <label class="btn btn-outline-primary" for="radio-review-<%= todo.todo_id%>">Review</label>
+
+                      <input type="radio" class="btn-check radio-status" name="status" value="4" id="radio-done-<%= todo.todo_id%>">
+                      <label class="btn btn-outline-success" for="radio-done-<%= todo.todo_id%>">Done</label>
+                    </div>
+                    <button class="change-todo-status-button" id="change-todo-status-button-<%= todo.todo_id%>" type="submit"></button>
+                  </form>
+
+                  <form method="post" action="/<%= todo.todo_id%>?_method=DELETE">
+                    <button class="btn btn-danger btn-sm delete-todo-button" type="submit"><i class="fas fa-trash-alt"></i></button>
+                  </form>
+                </div>
+              </div>
+            <%}%>
+          <%})%>
+        </div>
+      </div>
+
+      <!-- Review column -->
+      <div class="col-3">
+        <div class="row">
+          <h3>Review</h2>
+        </div>
+
+        <div class="row">
+          <% todos.forEach(todo => { %>
+            <% if(todo.status==='Review') { %>
+              <div class="card border-primary mb-3 mx-3" id="todo-<%= todo.todo_id%>">
+                <div class="card-body">
+                  <h5 class="card-title"><%= todo.name%></h5> 
+                  <p class="card-text text-muted"><i class="far fa-clock"></i> <%= todo.due_date%> &nbsp;<span class="badge rounded-pill <%if(todo.priority==='High'){%>bg-danger<%}%> <%if(todo.priority==='Medium'){%>bg-primary<%}%> <%if(todo.priority==='Low'){%>bg-secondary<%}%>"><%= todo.priority%></span></p>
+                </div>
+                <div class="card-footer bg-transparent border-primary d-flex justify-content-between">
+                  <form method="post" action="/<%= todo.todo_id%>?_method=PUT">
+                    <div class="btn-group btn-group-sm" id="test" role="group" aria-label="Basic radio toggle button group">
+                      <input type="radio" class="btn-check radio-status" name="status" value="1" id="radio-todo-<%= todo.todo_id%>">
+                      <label class="btn btn-outline-warning" for="radio-todo-<%= todo.todo_id%>">Todo</label>
+
+                      <input type="radio" class="btn-check radio-status" name="status" value="2" id="radio-inprogress-<%= todo.todo_id%>">
+                      <label class="btn btn-outline-info" for="radio-inprogress-<%= todo.todo_id%>">In progress</label>
+                    
+                      <input type="radio" class="btn-check radio-status" name="status" value="3" id="radio-review-<%= todo.todo_id%>">
+                      <label class="btn btn-outline-primary" for="radio-review-<%= todo.todo_id%>">Review</label>
+
+                      <input type="radio" class="btn-check radio-status" name="status" value="4" id="radio-done-<%= todo.todo_id%>">
+                      <label class="btn btn-outline-success" for="radio-done-<%= todo.todo_id%>">Done</label>
+                    </div>
+                    <button class="change-todo-status-button" id="change-todo-status-button-<%= todo.todo_id%>" type="submit"></button>
+                  </form>
+
+                  <form method="post" action="/<%= todo.todo_id%>?_method=DELETE">
+                    <button class="btn btn-danger btn-sm delete-todo-button" type="submit"><i class="fas fa-trash-alt"></i></button>
+                  </form>
+                </div>
+              </div>
+            <%}%>
+          <%})%>
+        </div>
+      </div>
+
+      <!-- Done column -->
+      <div class="col-3">
+        <div class="row">
+          <h3>Done</h2>
+        </div>
+
+        <div class="row">
+          <% todos.forEach(todo => { %>
+            <% if(todo.status==='Done') { %>
+              <div class="card border-success mb-3 mx-3" id="todo-<%= todo.todo_id%>">
+                <div class="card-body">
+                  <h5 class="card-title"><%= todo.name%></h5> 
+                  <p class="card-text text-muted"><i class="far fa-clock"></i> <%= todo.due_date%> &nbsp;<span class="badge rounded-pill <%if(todo.priority==='High'){%>bg-danger<%}%> <%if(todo.priority==='Medium'){%>bg-primary<%}%> <%if(todo.priority==='Low'){%>bg-secondary<%}%>"><%= todo.priority%></span></p>
+                </div>
+                <div class="card-footer bg-transparent border-success d-flex justify-content-between">
+                  <form method="post" action="/<%= todo.todo_id%>?_method=PUT">
+                    <div class="btn-group btn-group-sm" id="test" role="group" aria-label="Basic radio toggle button group">
+                      <input type="radio" class="btn-check radio-status" name="status" value="1" id="radio-todo-<%= todo.todo_id%>">
+                      <label class="btn btn-outline-warning" for="radio-todo-<%= todo.todo_id%>">Todo</label>
+
+                      <input type="radio" class="btn-check radio-status" name="status" value="2" id="radio-inprogress-<%= todo.todo_id%>">
+                      <label class="btn btn-outline-info" for="radio-inprogress-<%= todo.todo_id%>">In progress</label>
+                    
+                      <input type="radio" class="btn-check radio-status" name="status" value="3" id="radio-review-<%= todo.todo_id%>">
+                      <label class="btn btn-outline-primary" for="radio-review-<%= todo.todo_id%>">Review</label>
+
+                      <input type="radio" class="btn-check radio-status" name="status" value="4" id="radio-done-<%= todo.todo_id%>">
+                      <label class="btn btn-outline-success" for="radio-done-<%= todo.todo_id%>">Done</label>
+                    </div>
+                    <button class="change-todo-status-button" id="change-todo-status-button-<%= todo.todo_id%>" type="submit"></button>
+                  </form>
+
+                  <form method="post" action="/<%= todo.todo_id%>?_method=DELETE">
+                    <button class="btn btn-danger btn-sm delete-todo-button" type="submit"><i class="fas fa-trash-alt"></i></button>
+                  </form>
+                </div>
+              </div>
+            <%}%>
+          <%})%>
+        </div>
+      </div>
     <%}else{%>
       <p class="centered-paragraph">You don't have saved todos yet</p>
     <%}%>
   </div>
 </div>
 
-
-
-<!-- <if (modal === 'opened') {>
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <i class="fas fa-check modal-text"></i>
-      <p class="modal-text">Your todo has been saved</p>
-      <a href="/"><button class="button" id="close-modal-button" type="button">Close</button></a>
-    </div>
-  </div>
-<}> -->
-
-<script src="/static/home.js" defer></script>
+<script src="/static/js/home.js" defer></script>

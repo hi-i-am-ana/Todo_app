@@ -1,7 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
+body {
+  font-family: 'Raleway', sans-serif !important;
+}
+
+legend {
+  font-size: inherit !important;
+}
+
+.alert {
+  padding: 0 !important;
+}
+
+.change-todo-status-button {
+  display: none;
+}
+
 .form-alert {
   visibility: hidden;
   color: red;
-  font-size: 1.3rem;
+  /* font-size: 1.3rem; */
 }
 
 .red-border {
@@ -10,4 +28,8 @@
 
 .visibility-visible {
   visibility: visible;
+}
+
+.display-block {
+  display: block;
 }

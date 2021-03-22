@@ -6,8 +6,12 @@ const loggedOutCheck = require('../middleware.js').loggedOutCheck;
 const router = express.Router();
 
 // GET todos
-router.get('/', loggedOutCheck, (req, res) => {
-  db.each('SELECT * FROM todos ORDER BY status ASC, priority ASC, due_date ASC;', [], row => {
+// TODO: Commented for testing, remove later
+// router.get('/', loggedOutCheck, (req, res) => {
+router.get('/', (req, res) => {
+  // TODO: For testing
+  req.session.user = '1';
+  db.each(`SELECT todo_id, name, TO_CHAR(due_date, 'Mon dd, yyyy') due_date, status, priority FROM todos WHERE user_id = $1 ORDER BY due_date ASC, priority ASC;`, req.session.user, row => {
     const priorities = {
       1: 'High',
       2: 'Medium',
@@ -27,7 +31,6 @@ router.get('/', loggedOutCheck, (req, res) => {
       todos: todos,
       title: 'Home | TODO',
       currentUser: req.session.user,
-      modal: req.query.modal
     });
   })
   .catch((err) => res.render('pages/error', {
@@ -65,8 +68,22 @@ router.delete('/:id', (req,res) => {
   // console.log(req.body);
   // console.log(req.method);
   // console.log(req.originalMethod);
-  db.none('DELETE FROM todos WHERE todo_id = $1;', req.body.todo)
-  .then(() => res.redirect('/'))
+  db.none('DELETE FROM todos WHERE todo_id = $1;', req.params.id)
+  .then(() => res.redirect('/#todo-container'))
+  .catch((err) => res.render('pages/error', {
+    err: err,
+    title: 'Error | TODO',
+    currentUser: req.session.user
+  }));
+});
+
+// Change todo status
+router.put('/:id', (req,res) => {
+  // console.log(req.body);
+  // console.log(req.method);
+  // console.log(req.originalMethod);
+  db.none('UPDATE todos SET status = $1 WHERE todo_id = $2;', [req.body.status, req.params.id])
+  .then(() => res.redirect(`/#todo-${req.params.id}`))
   .catch((err) => res.render('pages/error', {
     err: err,
     title: 'Error | TODO',
