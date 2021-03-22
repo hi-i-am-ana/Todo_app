@@ -23,8 +23,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(expressLayouts);
 app.use(methodOverride('_method')); // must be called after body parser
-app.use('/static', express.static(path.join(__dirname, 'public')));
 app.use(morgan('dev'));  // static routes won't be logged if logger is instantiated after static routes
+app.use('/static', express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
