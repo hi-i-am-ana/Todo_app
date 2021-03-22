@@ -56,18 +56,18 @@
     <h2>All Todos</h2>
   </div>
 
-  <div class="row" id="todo-container">
+  <div class="row g-0" id="todo-container">
     <%if(todos.length!==0) {%>
       <!-- Todo column -->
-      <div class="col-3">
+      <div class="col-3 px-3">
         <div class="row text-center">
           <h3>Todo</h2>
         </div>
 
-        <div class="row">
+        <div class="row g-0">
           <% todos.forEach(todo => { %>
             <% if(todo.status==='Todo') { %>
-              <div class="card border-warning mb-3 mx-3" id="todo-<%= todo.todo_id%>">
+              <div class="card border-warning mb-3" id="todo-<%= todo.todo_id%>">
                 <div class="card-body">
                   <h5 class="card-title"><%= todo.name%></h5> 
                   <p class="card-text text-muted"><i class="far fa-clock"></i> <%= todo.due_date%> &nbsp;<span class="badge rounded-pill <%if(todo.priority==='High'){%>bg-danger<%}%> <%if(todo.priority==='Medium'){%>bg-primary<%}%> <%if(todo.priority==='Low'){%>bg-secondary<%}%>"><%= todo.priority%></span></p>
@@ -101,15 +101,15 @@
       </div>
 
       <!-- In progress column -->
-      <div class="col-3">
+      <div class="col-3 px-3">
         <div class="row text-center">
           <h3>In progress</h2>
         </div>
 
-        <div class="row">
+        <div class="row g-0">
           <% todos.forEach(todo => { %>
             <% if(todo.status==='In progress') { %>
-              <div class="card border-info mb-3 mx-3" id="todo-<%= todo.todo_id%>">
+              <div class="card border-info mb-3" id="todo-<%= todo.todo_id%>">
                 <div class="card-body">
                   <h5 class="card-title"><%= todo.name%></h5> 
                   <p class="card-text text-muted"><i class="far fa-clock"></i> <%= todo.due_date%> &nbsp;<span class="badge rounded-pill <%if(todo.priority==='High'){%>bg-danger<%}%> <%if(todo.priority==='Medium'){%>bg-primary<%}%> <%if(todo.priority==='Low'){%>bg-secondary<%}%>"><%= todo.priority%></span></p>
@@ -143,15 +143,15 @@
       </div>
 
       <!-- Review column -->
-      <div class="col-3">
+      <div class="col-3 px-3">
         <div class="row text-center">
           <h3>Review</h2>
         </div>
 
-        <div class="row">
+        <div class="row g-0">
           <% todos.forEach(todo => { %>
             <% if(todo.status==='Review') { %>
-              <div class="card border-primary mb-3 mx-3" id="todo-<%= todo.todo_id%>">
+              <div class="card border-primary mb-3" id="todo-<%= todo.todo_id%>">
                 <div class="card-body">
                   <h5 class="card-title"><%= todo.name%></h5> 
                   <p class="card-text text-muted"><i class="far fa-clock"></i> <%= todo.due_date%> &nbsp;<span class="badge rounded-pill <%if(todo.priority==='High'){%>bg-danger<%}%> <%if(todo.priority==='Medium'){%>bg-primary<%}%> <%if(todo.priority==='Low'){%>bg-secondary<%}%>"><%= todo.priority%></span></p>
@@ -185,15 +185,15 @@
       </div>
 
       <!-- Done column -->
-      <div class="col-3">
+      <div class="col-3 px-3">
         <div class="row text-center">
           <h3>Done</h2>
         </div>
 
-        <div class="row">
+        <div class="row g-0">
           <% todos.forEach(todo => { %>
             <% if(todo.status==='Done') { %>
-              <div class="card border-success mb-3 mx-3" id="todo-<%= todo.todo_id%>">
+              <div class="card border-success mb-3" id="todo-<%= todo.todo_id%>">
                 <div class="card-body">
                   <h5 class="card-title"><%= todo.name%></h5> 
                   <p class="card-text text-muted"><i class="far fa-clock"></i> <%= todo.due_date%> &nbsp;<span class="badge rounded-pill <%if(todo.priority==='High'){%>bg-danger<%}%> <%if(todo.priority==='Medium'){%>bg-primary<%}%> <%if(todo.priority==='Low'){%>bg-secondary<%}%>"><%= todo.priority%></span></p>
