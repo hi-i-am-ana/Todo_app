@@ -4,6 +4,7 @@ const querystring = require('querystring');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const db = require('../db/database.js');
+const { host, port, gmailhost, gmailport, gmailuser, gmailpassword } = require('../config');
 const loggedInCheck = require('../middleware.js').loggedInCheck;
 // Import shared validation function
 const validation = require('../public/js/shared_signup_validation.js');
@@ -12,7 +13,7 @@ const router = express.Router();
 
 // GET route for signup page
 router.get('/', loggedInCheck, (req, res) => res.render('pages/signup', {
-  title: 'Sign Up | Mr.Coffee Schedule Management',
+  title: 'Sign Up | TODO',
   currentUser: req.session.user,
   modal: req.query.modal,
   firstname: req.query.firstname,
@@ -106,30 +107,33 @@ router.post('/', (req, res) => {
             // TODO: Move email sending function to a separate module
             // Send email with link to confirm entered email address
             const transporter = nodemailer.createTransport({
-              host: process.env.GMAIL_HOST,
-              port: process.env.GMAIL_PORT,
+              host: gmailhost,
+              port: gmailport,
               secure: false,
               auth: {
-                user: process.env.GMAIL_USERNAME,
-                pass: process.env.GMAIL_PASSWORD,
+                user: gmailuser,
+                pass: gmailpassword,
               },
               tls: {
                 rejectUnauthorized: false
               }
             });
             const mailOptions = {
-              from: '"Mr.Coffee" <hi.i.am.anastasia@gmail.com>',
+              from: '"TODO" <hi.i.am.anastasia@gmail.com>',
               to: `${newUser.email}`,
-              subject: 'Please confirm your email address for Mr.Coffee schedule management system',
+              subject: 'Please confirm your email address for TODO',
               html: `
-              <h3>Thank you for creating your account on Mr.Coffee schedule management system</h3>
+              <h3>Thank you for creating your account on TODO</h3>
               <p>Please confirm your email address:</p>
-              <a href="http://${process.env.HOST}:${process.env.PORT}/email/${emailConfHash}">http://${process.env.HOST}:${process.env.PORT}/email/${emailConfHash}</a>
+              <a href="http://${host}:${port}/email/${emailConfHash}">http://${host}:${port}/email/${emailConfHash}</a>
               `
             };
             transporter.sendMail(mailOptions, (err, info) => {
               if (err) {
-                res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', current_user: req.session.user})
+                res.render('pages/error', {
+                  err: err,
+                  title: 'Error | TODO',
+                  currentUser: req.session.user})
               } else {
                 // console.log('Message sent: %s', info.messageId);
                 // Redirect back to signup page with modal opened
@@ -138,13 +142,22 @@ router.post('/', (req, res) => {
               };
             });
           })
-          .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', currentUser: req.session.user}));
+          .catch((err) => res.render('pages/error', {
+            err: err,
+            title: 'Error | TODO',
+            currentUser: req.session.user}));
         })
-        .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', currentUser: req.session.user}));
+        .catch((err) => res.render('pages/error', {
+          err: err,
+          title: 'Error | TODO',
+          currentUser: req.session.user}));
       });
     };
   })
-  .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', currentUser: req.session.user}));
+  .catch((err) => res.render('pages/error', {
+    err: err,
+    title: 'Error | TODO',
+    currentUser: req.session.user}));
 });
 
 module.exports = router;
