@@ -6,10 +6,7 @@ const loggedOutCheck = require('../middleware.js').loggedOutCheck;
 const router = express.Router();
 
 // GET todos
-// TODO: Commented for testing, remove later
-// router.get('/', loggedOutCheck, (req, res) => {
-router.get('/', (req, res) => {
-  // TODO: For testing
+router.get('/', loggedOutCheck, (req, res) => {
   req.session.user = '1';
   db.each(`SELECT todo_id, name, TO_CHAR(due_date, 'Mon dd, yyyy') due_date, status, priority FROM todos WHERE user_id = $1 ORDER BY due_date ASC, priority ASC;`, req.session.user, row => {
     const priorities = {

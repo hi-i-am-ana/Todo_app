@@ -12,9 +12,15 @@ router.get('/:id', loggedInCheck, (req, res) => {
       db.none('DELETE from email_confirmation WHERE hash = $1;', req.params.id)
     })
     .then(() => {
-      res.render('pages/email', {email: row.email, title: 'Email Confirmation | Mr.Coffee Schedule Management', current_user: req.session.user});
+      res.render('pages/email_confirmation', {
+        email: row.email,
+        title: 'Email Confirmation | TODO',
+        currentUser: req.session.user});
     })
-    .catch((err) => res.render('pages/error', {err: err, title: 'Error | Mr.Coffee Schedule Management', current_user: req.session.user}));
+    .catch((err) => res.render('pages/error', {
+      err: err,
+      title: 'Error | TODO',
+      currentUser: req.session.user}));
   })
   .catch((err) => res.status(404).render('pages/error', {
     err: {message: 'HTTP ERROR 404. This page can not be found'},
