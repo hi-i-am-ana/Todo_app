@@ -23,16 +23,6 @@ const confirmPasswordMatchAlert = document.getElementById("confirmPassword-match
 // Select email exists alert - only to clear server-side validation
 const emailExistsAlert = document.getElementById('email-exists-alert');
 
-const passwordInfo = document.getElementById('password-info');
-
-// Show and hide tooltip with password requirements info
-password.onfocus = () => {
-  passwordInfo.classList.add('display-inline');
-}
-password.onblur = () => {
-  passwordInfo.classList.remove('display-inline');
-}
-
 // Create variable to save validation status
 let validForm;
 
@@ -106,7 +96,7 @@ const passwordValid = (inputValue) => {
 const passwordMatch = (passwordValue, confirmPasswordValue) => passwordValue === confirmPasswordValue;
 
 const setInvalid = (inputAlert, input) => {
-  inputAlert.classList.add('display-inline');
+  inputAlert.classList.add('display-block');
   input.classList.add('red-border');
   validForm = false;
 };
@@ -114,19 +104,19 @@ const setInvalid = (inputAlert, input) => {
 const clearValidation = () => {
   validForm = true;
 
-  firstnameEmptyAlert.classList.remove('display-inline');
-  lastnameEmptyAlert.classList.remove('display-inline');
-  emailEmptyAlert.classList.remove('display-inline');
-  passwordEmptyAlert.classList.remove('display-inline');
-  confirmPasswordEmptyAlert.classList.remove('display-inline');
+  firstnameEmptyAlert.classList.remove('display-block');
+  lastnameEmptyAlert.classList.remove('display-block');
+  emailEmptyAlert.classList.remove('display-block');
+  passwordEmptyAlert.classList.remove('display-block');
+  confirmPasswordEmptyAlert.classList.remove('display-block');
 
-  firstnameInvalidAlert.classList.remove('display-inline');
-  lastnameInvalidAlert.classList.remove('display-inline');
-  emailInvalidAlert.classList.remove('display-inline');
-  passwordInvalidAlert.classList.remove('display-inline');
-  confirmPasswordMatchAlert.classList.remove('display-inline');
+  firstnameInvalidAlert.classList.remove('display-block');
+  lastnameInvalidAlert.classList.remove('display-block');
+  emailInvalidAlert.classList.remove('display-block');
+  passwordInvalidAlert.classList.remove('display-block');
+  confirmPasswordMatchAlert.classList.remove('display-block');
 
-  emailExistsAlert.classList.remove('display-inline');
+  emailExistsAlert.classList.remove('display-block');
 
   firstname.classList.remove('red-border');
   lastname.classList.remove('red-border');
