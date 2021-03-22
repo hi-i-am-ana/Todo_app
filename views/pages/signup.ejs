@@ -1,48 +1,53 @@
-<h2>Sign Up</h2>
+<div class="container-fluid">
+  <div class="col-4 offset-4">
+    <div class="row mt-3 text-center">
+      <h2>Sign Up</h2>
+    </div>
 
-<form id="form" method="post" action="/signup" novalidate>
+    <form class="row" id="form" method="post" action="/signup" novalidate>
+      <div class="mb-3">
+        <label for="firstname" class="form-label">First Name *</label>
+        <input class="form-control <%if(firstnameEmptyAlert==='true'||firstnameInvalidAlert==='true'){%>red-border<%}%>" type="text" id="firstname" name="firstname" value="<%if(firstname!==''){%><%= firstname%><%}%>">
+        <div class="form-alert <%if(firstnameEmptyAlert==='true'){%>display-block<%}%>"  id="firstname-empty-alert">Please enter your first name</div>
+        <div class="form-alert <%if(firstnameInvalidAlert==='true'){%>display-block<%}%>" id="firstname-invalid-alert">First name has invalid format</div>
+      </div>
+        
+      <div class="mb-3">
+        <label for="lastname" class="form-label">Last Name *</label>
+        <input class="form-control <%if(lastnameEmptyAlert==='true'||lastnameInvalidAlert==='true'){%>red-border<%}%>" type="text" id="lastname" name="lastname" value="<%if(lastname!==''){%><%= lastname%><%}%>">
+        <div class="form-alert <%if(lastnameEmptyAlert==='true'){%>display-block<%}%>" id="lastname-empty-alert">Please enter your last name</div>
+        <div class="form-alert <%if(lastnameInvalidAlert==='true'){%>display-block<%}%>" id="lastname-invalid-alert">Last name has invalid format</div>
+      </div>
 
-  <fieldset>
-    <label for="firstname">First Name *</label>
-    <input class="form-field <%if(firstnameEmptyAlert==='true'||firstnameInvalidAlert==='true'){%>red-border<%}%>" type="text" id="firstname" name="firstname" value="<%if(firstname!==''){%><%= firstname%><%}%>">
-    <span class="tooltip-form-alert <%if(firstnameEmptyAlert==='true'){%>display-inline<%}%>"  id="firstname-empty-alert">Please enter your first name</span>
-    <span class="tooltip-form-alert <%if(firstnameInvalidAlert==='true'){%>display-inline<%}%>" id="firstname-invalid-alert">First name has invalid format</span>
-  </fieldset>
-    
-  <fieldset>
-    <label for="lastname">Last Name *</label>
-    <input class="form-field <%if(lastnameEmptyAlert==='true'||lastnameInvalidAlert==='true'){%>red-border<%}%>" type="text" id="lastname" name="lastname" value="<%if(lastname!==''){%><%= lastname%><%}%>">
-    <span class="tooltip-form-alert <%if(lastnameEmptyAlert==='true'){%>display-inline<%}%>" id="lastname-empty-alert">Please enter your last name</span>
-    <span class="tooltip-form-alert <%if(lastnameInvalidAlert==='true'){%>display-inline<%}%>" id="lastname-invalid-alert">Last name has invalid format</span>
-  </fieldset>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address*</label>
+        <input class="form-control <%if(emailEmptyAlert==='true'||emailInvalidAlert==='true'||emailExistsAlert==='true'){%>red-border<%}%>" type="email" id="email" name="email" value="<%if(email!==''){%><%= email%><%}%>">
+        <div class="form-alert <%if(emailEmptyAlert==='true'){%>display-block<%}%>" id="email-empty-alert">Please enter your email address</div>
+        <div class="form-alert <%if(emailInvalidAlert==='true'){%>display-block<%}%>" id="email-invalid-alert">Email address has invalid format</div>
+        <div class="form-alert <%if(emailExistsAlert==='true'){%>display-block<%}%>" id="email-exists-alert">User with this email address already exists</div>
+      </div>
 
-  <fieldset>
-    <label for="email">Email *</label>
-    <input class="form-field <%if(emailEmptyAlert==='true'||emailInvalidAlert==='true'||emailExistsAlert==='true'){%>red-border<%}%>" type="email" id="email" name="email" value="<%if(email!==''){%><%= email%><%}%>">
-    <span class="tooltip-form-alert <%if(emailEmptyAlert==='true'){%>display-inline<%}%>" id="email-empty-alert">Please enter your email address</span>
-    <span class="tooltip-form-alert <%if(emailInvalidAlert==='true'){%>display-inline<%}%>" id="email-invalid-alert">Email has invalid format</span>
-    <span class="tooltip-form-alert <%if(emailExistsAlert==='true'){%>display-inline<%}%>" id="email-exists-alert">User with this email already exists</span>
-  </fieldset>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password *</label>
+        <input class="form-control <%if(passwordEmptyAlert==='true'||passwordInvalidAlert==='true'){%>red-border<%}%>" type="password" id="password" name="password">
+        <div class="form-alert <%if(passwordEmptyAlert==='true'){%>display-block<%}%>" id="password-empty-alert">Please enter your password</div>
+        <div class="form-alert <%if(passwordInvalidAlert==='true'){%>display-block<%}%>" id="password-invalid-alert">Password has invalid format</div>
+        <div class="form-alert" id="password-info">At least: 8 chars, one lower and one upper alpha chars, one number, one special char</div>
+      </div>
 
-  <fieldset>
-    <label for="password">Password *</label>
-    <input class="form-field <%if(passwordEmptyAlert==='true'||passwordInvalidAlert==='true'){%>red-border<%}%>" type="password" id="password" name="password">
-    <span class="tooltip-form-alert <%if(passwordEmptyAlert==='true'){%>display-inline<%}%>" id="password-empty-alert">Please enter your password</span>
-    <span class="tooltip-form-alert <%if(passwordInvalidAlert==='true'){%>display-inline<%}%>" id="password-invalid-alert">Password has invalid format</span>
-    <span class="tooltip-form-alert" id="password-info">At least: 8 chars, one lower and one upper alpha chars, one number, one special char</span>
-  </fieldset>
+      <div class="mb-3">
+        <label for="confirmPassword" class="form-label">Confirm Password *</label>
+        <input class="form-control <%if(confirmPasswordEmptyAlert==='true'||confirmPasswordMatchAlert==='true'){%>red-border<%}%>" type="password" id="confirmPassword" name="confirmPassword">
+        <div class="form-alert <%if(confirmPasswordEmptyAlert==='true'){%>display-block<%}%>" id="confirmPassword-empty-alert">Please enter your password</div>
+        <div class="form-alert <%if(confirmPasswordMatchAlert==='true'){%>display-block<%}%>" id="confirmPassword-match-alert">Passwords do not match</div>
+      </div>
 
-  <fieldset>
-    <label for="confirmPassword">Confirm Password *</label>
-    <input class="form-field <%if(confirmPasswordEmptyAlert==='true'||confirmPasswordMatchAlert==='true'){%>red-border<%}%>" type="password" id="confirmPassword" name="confirmPassword">
-    <span class="tooltip-form-alert <%if(confirmPasswordEmptyAlert==='true'){%>display-inline<%}%>" id="confirmPassword-empty-alert">Please enter your password</span>
-    <span class="tooltip-form-alert <%if(confirmPasswordMatchAlert==='true'){%>display-inline<%}%>" id="confirmPassword-match-alert">Passwords do not match</span>
-  </fieldset>
+      <button class="btn btn-primary shadow d-block mx-auto w-50" type="submit">Sign Up</button>
+    </form>
 
-  <button class="button" type="submit" id="submit-button">Sign Up</button>
-</form>
-
-<p class= "centered-paragraph">Already have an accout? <a href="/login">Login</a></p>
+    <p class="mt-3 text-center">Already have an account? <a href="/login">Login</a></p>
+  </div>
+</div>
 
 <%if (modal === 'opened') {%>
   <div class="modal" id="modal">
@@ -55,4 +60,4 @@
   </div>
 <%}%>
 
-<script src="/static/signup.js" defer></script>
+<script src="/static/js/signup.js" defer></script>
