@@ -4,6 +4,12 @@ body {
   font-family: 'Raleway', sans-serif !important;
 }
 
+.form-alert {
+  display: none;
+  color: red;
+  font-size: 0.85rem;
+}
+
 legend {
   font-size: inherit !important;
 }
@@ -16,11 +22,26 @@ legend {
   display: none;
 }
 
-.form-alert {
-  display: none;
-  color: red;
-  font-size: 0.85rem;
+/* modal */
+.my-modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
 }
+
+.my-modal-content {
+  width: 35%;
+  margin: 15% auto;
+  padding: 2rem;
+  background-color: #ffff;
+  border-radius: 4px;
+  text-align: center;
+}
+/* end modal */
 
 .red-border {
   border: solid 1px red !important;

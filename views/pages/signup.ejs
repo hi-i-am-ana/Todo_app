@@ -50,12 +50,12 @@
 </div>
 
 <%if (modal === 'opened') {%>
-  <div class="modal" id="modal">
-    <div class="modal-content">
+  <div class="my-modal">
+    <div class="my-modal-content">
       <i class="fas fa-check modal-text"></i>
-      <p class="modal-text">You have successfully created your account</p>
-      <p class="modal-text">Please confirm your email address</p>
-      <a href="/login"><button class="button" id="close-modal-button" type="button">Login</button></a>
+      <p class="mb-3">You have successfully created your account</p>
+      <p class="mb-3">Please confirm your email address</p>
+      <a href="/login"><button class="btn btn-primary shadow d-block mx-auto w-50" type="button">Login</button></a>
     </div>
   </div>
 <%}%>

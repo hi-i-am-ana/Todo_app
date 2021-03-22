@@ -26,7 +26,7 @@ router.get('/forgot', loggedInCheck, (req, res) => res.render('pages/password_fo
 
 // GET route for password RESET page
 router.get('/reset/:id', loggedInCheck, (req, res) => res.render('pages/password_reset', {
-  title: 'Forgot Password | TODO',
+  title: 'Reset Password | TODO',
   currentUser: req.session.user,
   passwordResetHash: req.params.id,
   modal: req.query.modal,
